@@ -1,0 +1,57 @@
+{
+  "name": "recipe-book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HannaSkrypko/recipe-book.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HannaSkrypko/recipe-book/issues"
+  },
+  "dependencies": {},
+  "homepage": "https://github.com/HannaSkrypko/recipe-book#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "antd": "^3.14.1",
+    "autoprefixer": "^9.4.10",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-import": "^1.11.0",
+    "css-loader": "^1.0.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.5",
+    "moment": "^2.23.0",
+    "node-sass": "^4.10.0",
+    "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-devtools": "^3.5.3",
+    "react-dom": "^16.6.3",
+    "react-moment": "^0.8.4",
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "styled-components": "^4.1.3",
+    "stylus-loader": "^3.0.2",
+    "webpack": "^4.27.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  }
+}

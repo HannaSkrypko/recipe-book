@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+    font: 400 16px/normal 'Alegreya Sans SC';
+
+    input,
+    button,
+    select,
+    optgroup,
+    textarea {
+        font-size: 16px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-weight: inherit;
+        color: inherit;
+    }
+    
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+}
