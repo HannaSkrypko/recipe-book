@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FONT_COLOR } from '../../../constants/colors';
 
 export const ModalContainer = styled.div`
     position: fixed;
@@ -7,6 +8,8 @@ export const ModalContainer = styled.div`
     width: 100%;
     height: 100%;
     z-index: 900;
+    color: ${FONT_COLOR};
+
 `;
 
 export const ModalOverlay = styled.div`
@@ -30,12 +33,14 @@ export const ModalContent = styled.div`
     max-height: 90vh;
     overflow-y: auto;
     min-width: 300px;
+    color: inherit;
 `;
 
 export const ModalTitle = styled.div`
     font-size: 22px;
     font-weight: 500;
     margin-bottom: 22px;
+    color: inherit;
 `;
 
 export const ModalCloseButton = styled.div`

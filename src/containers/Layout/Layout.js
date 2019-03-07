@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
 import Sider from './Sider';
-import Modal from '../../UI/Modals/Modal/index';
 
 const LayoutContainer = styled.div`
     min-width: 320px;
@@ -29,7 +28,6 @@ class Layout extends Component {
             <LayoutContainer>
                 <Sider />
                 <Content />
-                <Modal title="Modal"/>
             </LayoutContainer>
         );
     };

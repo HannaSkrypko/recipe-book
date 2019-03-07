@@ -1,7 +1,10 @@
-import Modal from './Modals/Modal';
+import Modal from './Modals/Modal/Modal';
 import Button from './Button/Button';
+import Input from './InputFields/Input/Input';
 
-export default {
+
+export {
     Modal,
     Button,
+    Input,
 };

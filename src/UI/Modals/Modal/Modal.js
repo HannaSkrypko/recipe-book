@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd';
 
-import Button from '../../../UI/Button/Button';
+import { Button, Input } from '../../../UI';
 
 import {
     ModalContainer, ModalOverlay,
@@ -9,7 +9,6 @@ import {
 } from './styled';
 
 export default class Modal extends Component {
-    
     render() {
         const title = this.props.title ? <ModalTitle>{this.props.title}</ModalTitle> : null;
 
@@ -26,9 +25,11 @@ export default class Modal extends Component {
                     { this.props.children }
                     { closeButton }
 
-                    <Button danger> default </Button>
-                    <Button filled danger> empty danger </Button>
-                    <Button disabled danger> disabled </Button>
+                    <Input 
+                        inputValue={this.props.inputValue || ''}
+                        labelValue={this.props.labelValue || ''}
+                    />
+                    <Button />
                 </ModalContent>
                 <ModalOverlay />
             </ModalContainer>

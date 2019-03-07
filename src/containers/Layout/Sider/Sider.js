@@ -4,6 +4,7 @@ import { Icon } from 'antd';
 import {
     SiderContainer, SiderCategoryButton, SiderHeader, SiderCategotyListItem,
 } from './styled';
+import { Modal } from '../../../UI';
 
 class Sider extends Component {
     state = {
@@ -11,8 +12,9 @@ class Sider extends Component {
         categoties: [
             'Супы','Салаты','Соусы','Десерты','Суши'
         ],
+        isModalShown: false,
+        categoryIndex: 0,
     }
-
 
     addCategoryHandler = () => {
         const categoriesArr = this.state.categoties;
@@ -32,7 +34,22 @@ class Sider extends Component {
         })
     }
 
+    editCategory = (index) => {
+        this.setState({
+            isModalShown: true,
+            categoryIndex: index,
+        });
+    }
+
     render() {
+        let modal = null;
+        if (this.state.isModalShown) {
+            modal = <Modal
+                        title={"Редактировать"}
+                        inputValue={this.state.categoties[this.state.categoryIndex]}
+                        labelValue="Название категории"
+                    />
+        }
         return (
             <SiderContainer
                 collapsed={this.state.isCollapsed}
@@ -51,13 +68,14 @@ class Sider extends Component {
                         return <SiderCategotyListItem key={index}> 
                                     {categoty} 
                                     <SiderCategoryButton edit
-                                        onClick={() => this.removeCategoryHandler(index)}
+                                        onClick={() => this.editCategory(index)}
                                     >
                                         <Icon type="edit" />
                                     </SiderCategoryButton>
                                 </SiderCategotyListItem>
                     })}
                 </ul>
+               {modal}
             </SiderContainer>
         );
     }
