@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Icon } from 'antd';
 
 import {
-    SiderContainer, SiderCategoryButton, SiderHeader, SiderCategotyListItem,
+    SiderContainer, SiderCategoryButton, SiderHeader, SiderCategoryListItem,
     ModalDataWrapper, ModalButtonsWrapper,
 } from './styled';
 import { Modal, Input, DeletButton, Button } from '../../../UI';
@@ -10,7 +10,7 @@ import { Modal, Input, DeletButton, Button } from '../../../UI';
 class Sider extends Component {
     state = {
         isCollapsed: false,
-        categoties: [
+        categories: [
             'Супы','Салаты','Соусы','Десерты','Суши'
         ],
         modals: {
@@ -31,16 +31,10 @@ class Sider extends Component {
                         },
                     });
                     break;
-                case "edit":
-                    this.setState({
-                        modals: {
-                            edit:  true,
-                        },
-                    });
-                    break;
                 case "confirm":
                     this.setState({
                         modals: {
+                            edit: true,
                             confirm:  true,
                         },
                     });
@@ -77,13 +71,23 @@ class Sider extends Component {
             }
         },
         remove: ( categoryIndex ) => {
-            const categoriesArr = this.state.categoties;
+            const categoriesArr = this.state.categories;
             categoriesArr.splice(categoryIndex, 1);
     
             this.setState({
                 categories: categoriesArr,
                 modals: {
                     edit:  false,
+                    confirm: false,
+                },
+            })
+
+        },
+        cancelRemove: () => {
+            this.setState({
+                modals: {
+                    edit:  true,
+                    confirm: false,
                 },
             })
         },
@@ -95,40 +99,70 @@ class Sider extends Component {
                 categoryIndex: index,
             });
         },
+        saveCategory: ( index, e ) => {
+            const categoryArr = this.state.categories;
+            categoryArr[index] = this.state.inputValue;
+            this.setState({categories: categoryArr});            
+        }
     }
 
     render() {
         let editModal = null;
+        let modalContent;
         if (this.state.modals.edit) {
+            if(this.state.modals.confirm) {
+                modalContent = <ModalDataWrapper>
+                                    <h2> Вы уверены, что хотите удалить категорию "{this.state.categories[this.state.categoryIndex]}"? Её невозможно будет восстановить. </h2>
+                                    <ModalButtonsWrapper>
+                                        <Button 
+                                            width="100px"
+                                            onClick={() => this.categoryAction.cancelRemove()}
+                                        > 
+                                            Отменить
+                                        </Button>
+                                        <Button
+                                            filled
+                                            width="150px"
+                                            onClick={() => this.categoryAction.remove(this.state.categoryIndex)}
+                                        > 
+                                            Удалить
+                                        </Button>
+                                    </ModalButtonsWrapper> 
+                                </ModalDataWrapper>;
+            }
+            else {
+                modalContent = <ModalDataWrapper>
+                                    <Input 
+                                        inputValue={this.state.inputValue}
+                                        labelValue={"Название категории"}
+                                    />
+                                    <DeletButton onClick={() => this.categoryAction.openModal('confirm')}/> 
+                                    <ModalButtonsWrapper>
+                                        <Button 
+                                            width="100px"
+                                            onClick={() => this.categoryAction.closeModal('edit')}
+                                        > 
+                                            Отменить
+                                        </Button>
+                                        <Button
+                                            filled
+                                            width="150px"
+                                        > 
+                                            Сохранить
+                                        </Button>
+                                    </ModalButtonsWrapper> 
+                                </ModalDataWrapper>
+            }
             editModal = (
                 <Modal
                     closeModal={() => this.categoryAction.closeModal('edit')}
                     title={"Редактировать"}
                 >
-                    <ModalDataWrapper>
-                        <Input 
-                            inputValue={this.state.categoties[this.state.categoryIndex]}
-                            labelValue={"Название категории"}
-                        />
-                        <DeletButton onClick={() => this.categoryAction.remove(this.state.categoryIndex)}/> 
-                        <ModalButtonsWrapper>
-                            <Button 
-                                width="100px"
-                                onClick={() => this.categoryAction.closeModal('edit')}
-                            > 
-                                Отменить
-                            </Button>
-                            <Button
-                                filled
-                                width="150px"
-                            > 
-                                Сохранить
-                            </Button>
-                        </ModalButtonsWrapper>
-                    </ModalDataWrapper>
+                    { modalContent }
                 </Modal>
             )
         }
+
 
         let addModal = null;
         if (this.state.modals.add) {
@@ -174,15 +208,15 @@ class Sider extends Component {
                     </SiderCategoryButton>
                 </SiderHeader>
                 <ul>
-                    {this.state.categoties.map((categoty, index) => {
-                        return <SiderCategotyListItem key={index}> 
-                                    {categoty} 
+                    {this.state.categories.map((category, index) => {
+                        return <SiderCategoryListItem key={index}> 
+                                    {category} 
                                     <SiderCategoryButton edit
                                         onClick={() => this.categoryAction.edit(index)}
                                     >
                                         <Icon type="edit" />
                                     </SiderCategoryButton>
-                                </SiderCategotyListItem>
+                                </SiderCategoryListItem>
                     })}
                 </ul>
                {editModal}

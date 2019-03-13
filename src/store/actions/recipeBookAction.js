@@ -1,28 +1,28 @@
 import * as actionType from './actionTypes';
 import axios from '../../../axios-transfers';
-import { setCategories } from '../../../../itechart/react_projects/react-money-keeper/src/store/actions/transfer';
 
-export const serCategories = (categories) => {
+
+export const setCategories = ( categories ) => {
     return {
-        type:actionType.SET_CATEGORIES,
-        categories: categories,
+        type: actionType.SET_CATEGORIES,
+        categories: categories
     }
-}
+};
 
 export const initCategories = () => {
     return dispatch => {
         axios.get("/categories.json")
              .then(
                 response => {
-                    const frtchArray = [];
+                    const fetchArray = [];
                     for (let key in response.data) {
                         fetchArray.push({
                             ...response.data[key],
-                            id: key,
+                            id: key
                         });
-                    }
-                    dispatch(setCategories(fetchArray))
+                    };
+                    dispatch(setCategories(fetchArray));
                 }
-             )
-    }
-}
+             );
+    };
+};

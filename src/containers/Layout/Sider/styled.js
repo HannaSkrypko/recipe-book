@@ -44,7 +44,7 @@ export const SiderHeader = styled.span`
     }
 `;
 
-export const SiderCategotyListItem = styled.li`
+export const SiderCategoryListItem = styled.li`
     color: inherit;
     padding: 10px 30px;
     background-color: transparent;
