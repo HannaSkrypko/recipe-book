@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    // baseURL: 'https://money-keeper-a936a.firebaseio.com/'
+    baseURL: 'https://recipes-c3bf4.firebaseio.com/'
 });
 
 export default instance;

@@ -61,3 +61,27 @@ export const SiderCategotyListItem = styled.li`
         }
     }
 `;
+
+/* Modal data start*/
+export const ModalDataWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 400px;
+    padding-bottom: 80px;
+    position: relative;
+`;
+export const ModalButtonsWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    & button {
+        margin-left: 10px;
+    }
+`;
+/* Modal data end*/
+
+

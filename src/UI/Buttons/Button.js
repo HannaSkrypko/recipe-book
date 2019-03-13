@@ -29,8 +29,6 @@ export default ( props ) => {
 
         &:focus {
             background-color: ${props => (props.filled ? MAIN_THEME_COLOR_DARKER : props.disabled ? '#e1e1e1' : 'transparent')};
-            outline: 0;
-            outline-offset: 0;
         }
     `;
 

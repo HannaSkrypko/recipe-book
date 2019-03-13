@@ -29,8 +29,6 @@ export const InputField = styled.input`
 
     &:focus {
         opacity: 1;
-        outline: 0;
-        outline-offset: 0;
     }
 `;
 

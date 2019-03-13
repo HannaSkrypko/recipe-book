@@ -33,7 +33,7 @@ export default class Input extends Component {
             }
         },
         Blur: () => {
-            if (this.state.inputState === 1 || !this.state.inputValue) {
+            if (this.state.inputState === 1 && !this.state.inputValue) {
                 this.setState({
                     inputState: 0,
                 })

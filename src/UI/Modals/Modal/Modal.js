@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd';
 
-import { Button, Input } from '../../../UI';
-
 import {
     ModalContainer, ModalOverlay,
     ModalContent, ModalTitle, ModalCloseButton,
@@ -13,7 +11,7 @@ export default class Modal extends Component {
         const title = this.props.title ? <ModalTitle>{this.props.title}</ModalTitle> : null;
 
         const closeButton = (
-            <ModalCloseButton>
+            <ModalCloseButton onClick={this.props.closeModal}>
                 <Icon type="close" />
             </ModalCloseButton>
         )
@@ -24,14 +22,8 @@ export default class Modal extends Component {
                     { title }
                     { this.props.children }
                     { closeButton }
-
-                    <Input 
-                        inputValue={this.props.inputValue || ''}
-                        labelValue={this.props.labelValue || ''}
-                    />
-                    <Button />
                 </ModalContent>
-                <ModalOverlay />
+                <ModalOverlay onClick={this.props.closeModal}/>
             </ModalContainer>
         );
     };
