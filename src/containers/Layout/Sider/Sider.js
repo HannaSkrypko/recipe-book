@@ -99,11 +99,11 @@ class Sider extends Component {
                 categoryIndex: index,
             });
         },
-        saveCategory: ( index, e ) => {
-            const categoryArr = this.state.categories;
-            categoryArr[index] = this.state.inputValue;
-            this.setState({categories: categoryArr});            
-        }
+        // saveCategory: ( index, e ) => {
+        //     const categoryArr = this.state.categories;
+        //     categoryArr[index] = this.state.inputValue;
+        //     this.setState({categories: categoryArr});            
+        // }
     }
 
     render() {
@@ -133,7 +133,7 @@ class Sider extends Component {
             else {
                 modalContent = <ModalDataWrapper>
                                     <Input 
-                                        inputValue={this.state.inputValue}
+                                        inputValue={this.state.categories[this.state.categoryIndex]}
                                         labelValue={"Название категории"}
                                     />
                                     <DeletButton onClick={() => this.categoryAction.openModal('confirm')}/> 
