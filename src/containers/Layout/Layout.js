@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Sider from './Sider';
-import { Search } from '../../UI';
+import Content from './Content';
 
 import * as actions from '../../store/actions';
 
@@ -20,12 +20,6 @@ const LayoutContainer = styled.div`
     grid-template-columns: auto 1fr;
 `;
 
-const Content = styled.div`
-    grid-area: content;
-    width: 100%;
-    height: 100%;
-`;
-
 class Layout extends Component {
 
     componentDidMount() {
@@ -36,9 +30,7 @@ class Layout extends Component {
         return (
             <LayoutContainer>
                 <Sider />
-                <Content>
-                    <Search  width="250px"/>    
-                </Content>
+                <Content />
             </LayoutContainer>
         );
     };
