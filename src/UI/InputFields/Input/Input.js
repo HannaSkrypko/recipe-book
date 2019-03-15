@@ -21,6 +21,7 @@ export default class Input extends Component {
 
     inputAction = {
         Change: (e) => {
+            this.props.categoryChange(e.target.value.trim());
             this.setState({
                 inputValue: e.target.value,
             })

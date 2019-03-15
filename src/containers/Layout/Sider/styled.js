@@ -71,6 +71,14 @@ export const ModalDataWrapper = styled.div`
     padding-bottom: 80px;
     position: relative;
 `;
+export const ModalDeleteConfirmText = styled.div`
+    font-size: 21px;
+    text-align: justify;
+
+    & i {
+        margin-right: 15px;
+    }
+`;
 export const ModalButtonsWrapper = styled.div`
     display: flex;
     justify-content: flex-end;

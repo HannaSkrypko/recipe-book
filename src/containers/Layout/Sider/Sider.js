@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd';
 
+import { MAIN_THEME_COLOR } from '../../../constants/colors';
+
 import {
     SiderContainer, SiderCategoryButton, SiderHeader, SiderCategoryListItem,
-    ModalDataWrapper, ModalButtonsWrapper,
+    ModalDataWrapper, ModalDeleteConfirmText, ModalButtonsWrapper,
 } from './styled';
 import { Modal, Input, DeletButton, Button } from '../../../UI';
 
@@ -19,6 +21,7 @@ class Sider extends Component {
             confirm: false,
         },
         categoryIndex: 0,
+        categoryName:'',
     }
 
     categoryAction = {
@@ -70,6 +73,25 @@ class Sider extends Component {
                     break;
             }
         },
+        addNameCategory: ( newName ) => {
+            const categoryArr = this.state.categories;
+            if (categoryArr.indexOf(newName + "") == -1 && newName) {
+                categoryArr.push(newName);
+                this.setState({
+                    categories: categoryArr,
+                    modals: {
+                        add:  false,
+                    },
+                })
+            }
+            else  if (!newName) {
+                alert("Введите название");
+            }
+            else if (categoryArr.indexOf(newName + "") != -1 && newName){
+                alert("Такая категория уже существует");
+            }
+
+        },
         remove: ( categoryIndex ) => {
             const categoriesArr = this.state.categories;
             categoriesArr.splice(categoryIndex, 1);
@@ -80,8 +102,7 @@ class Sider extends Component {
                     edit:  false,
                     confirm: false,
                 },
-            })
-
+            });
         },
         cancelRemove: () => {
             this.setState({
@@ -92,18 +113,51 @@ class Sider extends Component {
             })
         },
         edit: ( index ) => {
-            this.setState({
-                modals: {
-                    edit:  true,
-                },
-                categoryIndex: index,
+            this.setState(state => {
+                return(
+                    {
+                        modals: {
+                            edit:  true,
+                        },
+                        categoryIndex: index,
+                        categoryName: state.categories[this.categoryIndex],
+                    }
+                )
+            });
+            this.setState(state => {
+                return(
+                    {
+                        categoryName: state.categories[state.categoryIndex],
+                    }
+                )
             });
         },
-        // saveCategory: ( index, e ) => {
-        //     const categoryArr = this.state.categories;
-        //     categoryArr[index] = this.state.inputValue;
-        //     this.setState({categories: categoryArr});            
-        // }
+        changeNameCategory: ( newName ) => {
+            this.setState(state => {
+                return(
+                    {
+                        categoryName: newName,
+                    }
+                )
+            });
+        },
+        saveCategoryName: ( newName ) => {
+            const index = this.state.categoryIndex;
+            const categoryArr = this.state.categories;
+            if (categoryArr[index] != newName) {
+                categoryArr[index] = newName;
+                this.setState(state => {
+                    return(
+                        {
+                            categories: categoryArr,
+                            modals: {
+                                edit:  false,
+                            },
+                        }
+                    )
+                });    
+            }
+        }
     }
 
     render() {
@@ -112,7 +166,13 @@ class Sider extends Component {
         if (this.state.modals.edit) {
             if(this.state.modals.confirm) {
                 modalContent = <ModalDataWrapper>
-                                    <h2> Вы уверены, что хотите удалить категорию "{this.state.categories[this.state.categoryIndex]}"? Её невозможно будет восстановить. </h2>
+                                    <ModalDeleteConfirmText> 
+                                        <Icon 
+                                            type="question-circle"
+                                            style={{ color: MAIN_THEME_COLOR }}
+                                        />
+                                        Вы уверены, что хотите удалить категорию "{this.state.categories[this.state.categoryIndex]}"? Её невозможно будет восстановить.
+                                    </ModalDeleteConfirmText>
                                     <ModalButtonsWrapper>
                                         <Button 
                                             width="100px"
@@ -135,6 +195,7 @@ class Sider extends Component {
                                     <Input 
                                         inputValue={this.state.categories[this.state.categoryIndex]}
                                         labelValue={"Название категории"}
+                                        categoryChange={this.categoryAction.changeNameCategory.bind(this)}
                                     />
                                     <DeletButton onClick={() => this.categoryAction.openModal('confirm')}/> 
                                     <ModalButtonsWrapper>
@@ -147,6 +208,7 @@ class Sider extends Component {
                                         <Button
                                             filled
                                             width="150px"
+                                            onClick={() => this.categoryAction.saveCategoryName(this.state.categoryName)}
                                         > 
                                             Сохранить
                                         </Button>
@@ -174,6 +236,7 @@ class Sider extends Component {
                 <ModalDataWrapper>
                     <Input 
                         labelValue={"Название категории"}
+                        categoryChange={this.categoryAction.changeNameCategory.bind(this)}
                     />
                     <ModalButtonsWrapper>
                             <Button 
@@ -185,6 +248,7 @@ class Sider extends Component {
                             <Button
                                 filled
                                 width="150px"
+                                onClick={() => this.categoryAction.addNameCategory(this.state.categoryName)}
                             > 
                                 Добавить
                             </Button>

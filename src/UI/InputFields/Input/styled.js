@@ -34,8 +34,8 @@ export const InputField = styled.input`
 
 export const InputLabel = styled.div`
     position: absolute;
-    top: ${props => (props.toTop ? '-10px' : '27px')};
-    left: ${props => (props.toTop ? '0' : '15px')};
+    top: ${props => (props.toTop ? '-7px' : '27px')};
+    left: ${props => (props.toTop ? '2px' : '15px')};
     color: ${props => (props.toTop ?  'inherit' : '#cac7c7')};
     font-size: 16px;
 

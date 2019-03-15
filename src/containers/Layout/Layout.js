@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 // import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { Spin } from 'antd';
+// import { Spin } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Sider from './Sider';
+import { Search } from '../../UI';
 
 import * as actions from '../../store/actions';
 
@@ -35,7 +36,9 @@ class Layout extends Component {
         return (
             <LayoutContainer>
                 <Sider />
-                <Content />
+                <Content>
+                    <Search  width="250px"/>    
+                </Content>
             </LayoutContainer>
         );
     };
