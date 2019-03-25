@@ -5,3 +5,10 @@ export const ContentWrapper = styled.div`
     width: 100%;
     height: 100%;
 `;
+
+export const ContextHeader = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 50px;
+    padding-top: 15px;
+`;

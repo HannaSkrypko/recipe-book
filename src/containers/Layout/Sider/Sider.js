@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd';
+import { connect } from 'react-redux';
 
 import { MAIN_THEME_COLOR } from '../../../constants/colors';
 
@@ -258,6 +259,8 @@ class Sider extends Component {
             )
         }
 
+        const categories = this.state.categories;
+
         return (
             <SiderContainer
                 collapsed={this.state.isCollapsed}
@@ -272,7 +275,7 @@ class Sider extends Component {
                     </SiderCategoryButton>
                 </SiderHeader>
                 <ul>
-                    {this.state.categories.map((category, index) => {
+                    {categories.map((category, index) => {
                         return <SiderCategoryListItem key={index}> 
                                     {category} 
                                     <SiderCategoryButton edit
@@ -289,5 +292,14 @@ class Sider extends Component {
         );
     }
 };
+
+// const mapStateToProps = state => {
+//     return {
+//         categories: state.categories,
+//     }
+// }
+
+
+// export default connect(mapStateToProps)(Sider);
 
 export default Sider;
