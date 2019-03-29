@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 import {
     ContentWrapper, ContextHeader,
@@ -9,7 +9,6 @@ import { Search } from '../../../UI';
 class Content extends Component {
     render() {
         return (
-            console.log(this.props.categories),
             <ContentWrapper>
                 <ContextHeader>
                     <Search width="250px"/>
@@ -19,11 +18,11 @@ class Content extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        categories: state.categories,
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         categories: state.categories,
+//     }
+// }
 
 // const mapDispatchToProps = dispatch => {
 //     return {
@@ -31,4 +30,4 @@ const mapStateToProps = state => {
 //     }
 // }
 
-export default connect(mapStateToProps, null)(Content)
+export default Content;

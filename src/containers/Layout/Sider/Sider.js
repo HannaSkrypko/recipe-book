@@ -10,12 +10,11 @@ import {
 } from './styled';
 import { Modal, Input, DeletButton, Button } from '../../../UI';
 
+import * as actions from '../../../store/actions';
+
 class Sider extends Component {
     state = {
         isCollapsed: false,
-        categories: [
-            'Супы','Салаты','Соусы','Десерты','Суши'
-        ],
         modals: {
             edit: false,
             add: false,
@@ -74,15 +73,14 @@ class Sider extends Component {
                     break;
             }
         },
-        addNameCategory: ( newName ) => {
-            const categoryArr = this.state.categories;
+        addNameCategory: ( newName, categoryArr ) => {
             if (categoryArr.indexOf(newName + "") == -1 && newName) {
-                categoryArr.push(newName);
+                this.props.onAddCategory(newName);
+                this.props.onInitCategories(); // HOW WE NEED TO DO IN A REAL PROJECT?? 
                 this.setState({
-                    categories: categoryArr,
                     modals: {
-                        add:  false,
-                    },
+                        add: false,
+                    }
                 })
             }
             else  if (!newName) {
@@ -93,17 +91,15 @@ class Sider extends Component {
             }
 
         },
-        remove: ( categoryIndex ) => {
-            const categoriesArr = this.state.categories;
-            categoriesArr.splice(categoryIndex, 1);
-    
+        remove: ( categoryIndex ) => { 
+            this.props.onDeleteCategory(this.props.categories[categoryIndex].id);
             this.setState({
-                categories: categoriesArr,
                 modals: {
                     edit:  false,
                     confirm: false,
                 },
             });
+            this.props.onInitCategories(); // HOW WE NEED TO DO IN A REAL PROJECT?? 
         },
         cancelRemove: () => {
             this.setState({
@@ -121,17 +117,19 @@ class Sider extends Component {
                             edit:  true,
                         },
                         categoryIndex: index,
-                        categoryName: state.categories[this.categoryIndex],
+                        categoryName: this.props.categories[this.state.categoryIndex].name,
                     }
                 )
             });
             this.setState(state => {
                 return(
                     {
-                        categoryName: state.categories[state.categoryIndex],
+                        categoryName: this.props.categories[this.state.categoryIndex].name,
                     }
                 )
             });
+            
+            console.log(this.state.categoryName);
         },
         changeNameCategory: ( newName ) => {
             this.setState(state => {
@@ -158,10 +156,13 @@ class Sider extends Component {
                     )
                 });    
             }
+            
         }
     }
 
     render() {
+        const categories = this.props.categories;
+
         let editModal = null;
         let modalContent;
         if (this.state.modals.edit) {
@@ -172,7 +173,7 @@ class Sider extends Component {
                                             type="question-circle"
                                             style={{ color: MAIN_THEME_COLOR }}
                                         />
-                                        Вы уверены, что хотите удалить категорию "{this.state.categories[this.state.categoryIndex]}"? Её невозможно будет восстановить.
+                                        Вы уверены, что хотите удалить категорию "{categories[this.state.categoryIndex].name}"? Её невозможно будет восстановить.
                                     </ModalDeleteConfirmText>
                                     <ModalButtonsWrapper>
                                         <Button 
@@ -194,7 +195,7 @@ class Sider extends Component {
             else {
                 modalContent = <ModalDataWrapper>
                                     <Input 
-                                        inputValue={this.state.categories[this.state.categoryIndex]}
+                                        inputValue={categories[this.state.categoryIndex].name}
                                         labelValue={"Название категории"}
                                         categoryChange={this.categoryAction.changeNameCategory.bind(this)}
                                     />
@@ -249,7 +250,7 @@ class Sider extends Component {
                             <Button
                                 filled
                                 width="150px"
-                                onClick={() => this.categoryAction.addNameCategory(this.state.categoryName)}
+                                onClick={() => this.categoryAction.addNameCategory(this.state.categoryName, this.props.categories)}
                             > 
                                 Добавить
                             </Button>
@@ -258,8 +259,6 @@ class Sider extends Component {
                 </Modal>
             )
         }
-
-        const categories = this.state.categories;
 
         return (
             <SiderContainer
@@ -275,16 +274,17 @@ class Sider extends Component {
                     </SiderCategoryButton>
                 </SiderHeader>
                 <ul>
-                    {categories.map((category, index) => {
+                    {categories != [] ? categories.map((category, index) => {
                         return <SiderCategoryListItem key={index}> 
-                                    {category} 
+                                    {category.name} 
                                     <SiderCategoryButton edit
                                         onClick={() => this.categoryAction.edit(index)}
                                     >
                                         <Icon type="edit" />
                                     </SiderCategoryButton>
                                 </SiderCategoryListItem>
-                    })}
+                    })
+                : null}
                 </ul>
                {editModal}
                {addModal}
@@ -299,7 +299,14 @@ class Sider extends Component {
 //     }
 // }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onDeleteCategory: (id) => dispatch(actions.deleteCategory(id)),
+        onAddCategory: (name) => dispatch(actions.addCategory(name)),
+        onInitCategories: () => dispatch(actions.initCategories()),
+    }
+}
 
-// export default connect(mapStateToProps)(Sider);
+export default connect(null, mapDispatchToProps)(Sider);
 
-export default Sider;
+// export default Sider;

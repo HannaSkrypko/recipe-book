@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
-// import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
-import styled from 'styled-components';
-// import { Spin } from 'antd';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import Sider from './Sider';
 import Content from './Content';
 
 import * as actions from '../../store/actions';
+import LayoutContainer from './styled';
 
-const LayoutContainer = styled.div`
-    min-width: 320px;
-    width: 100%;
-    height: 100vh;
-
-    display: grid;
-    grid-template-areas: 'sider content';
-    grid-template-columns: auto 1fr;
-`;
 
 class Layout extends Component {
 
@@ -29,13 +17,18 @@ class Layout extends Component {
     render() {
         return (
             <LayoutContainer>
-                <Sider />
+                <Sider categories={this.props.categories}/>
                 <Content />
             </LayoutContainer>
         );
     };
 };
 
+const mapStateToProps = state => {
+    return {
+        categories: state.categories,
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -43,4 +36,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(Layout));
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
